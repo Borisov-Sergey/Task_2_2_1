@@ -10,12 +10,11 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "model")
+    @Column(name = "model")
     private String model;
 
-    @Column (name = "series")
+    @Column(name = "series")
     private int series;
-
 
 
     public Car() {
@@ -52,10 +51,10 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", model='" + model + '\'' +
-                ", series=" + series +
+        return "{ " +
+                "id = " + id +
+                ", model = " + model +
+                ", series = " + series +
                 '}';
     }
 
