@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImp implements UserDao {
     private final SessionFactory sessionFactory;
+
     @Autowired
     public UserDaoImp(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -20,6 +22,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public void add(User user) {
         sessionFactory.getCurrentSession().save(user);
+        Optional.ofNullable(user.getCar()).ifPresent(this::addCar);
     }
 
     @Override
@@ -29,8 +32,8 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> getUserAsCar(Car car) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User where car.model = :car").setParameter("car", car.getModel());
+    public List<User> getUserAsCar(String model, Integer series) {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User where car.model = :model and car.series = :series").setParameter("model", model).setParameter("series", series);
         return query.getResultList();
     }
 
