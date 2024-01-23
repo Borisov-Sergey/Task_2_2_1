@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -18,6 +20,7 @@ public class UserServiceImp implements UserService {
     @Transactional
     @Override
     public void add(User user) {
+        Optional.ofNullable(user.getCar()).ifPresent(this::addCar);
         userDao.add(user);
     }
 

@@ -22,7 +22,6 @@ public class UserDaoImp implements UserDao {
     @Override
     public void add(User user) {
         sessionFactory.getCurrentSession().save(user);
-        Optional.ofNullable(user.getCar()).ifPresent(this::addCar);
     }
 
     @Override
